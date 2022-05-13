@@ -50,6 +50,13 @@ class TestApp(unittest.TestCase):
         status = response.status_code
         self.assertEqual(status, 201)
 
+    # Test POST request with invalid data
+    def test_app_invalid_post(self):
+        tester = app.test_client(self)
+        response = tester.post('/tasks', content_type='application/json', data=json.dumps({'id': 2, 'title': 'Test Task', 'description': 'Test Description'}))
+        status = response.status_code
+        self.assertEqual(status, 400)
+
 
 
 
