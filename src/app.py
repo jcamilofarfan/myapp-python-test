@@ -15,6 +15,7 @@ def getTask(id):
     for task in Tasks:
         if task['id'] == id:
             return jsonify({'task': task})
+    return jsonify({'message': 'Task not found'})
 
 if __name__ == '__main__':
     app.run(debug=True, port=4000)
