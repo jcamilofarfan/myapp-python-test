@@ -19,14 +19,17 @@ def getTask(id):
 
 @app.route('/tasks', methods=['POST'])
 def createTask():
-    new_task = {
-        'id': request.json['id'],
-        'title': request.json['title'],
-        'description': request.json['description'],
-        'is_completed': request.json['is_completed']
-    }
-    Tasks.append(new_task)
-    return jsonify({'task': new_task}), 201
+    try:
+        new_task = {
+            'id': request.json['id'],
+            'title': request.json['title'],
+            'description': request.json['description'],
+            'is_completed': request.json['is_completed']
+        }
+        Tasks.append(new_task)
+        return jsonify({'task': new_task}), 201
+    except Exception as e:
+        return jsonify({'message': 'Invalid data'}), 400
 
 if __name__ == '__main__':
     app.run(debug=True, port=4000)
