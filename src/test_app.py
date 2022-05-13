@@ -1,3 +1,6 @@
+import json
+
+
 try:
     import unittest
     from app import app
@@ -39,6 +42,13 @@ class TestApp(unittest.TestCase):
         response = tester.get('/tasks/100', content_type='application/json')
         response = response.json
         self.assertEqual(response['message'], 'Task not found')
+
+    # Test POST request
+    def test_app_post(self):
+        tester = app.test_client(self)
+        response = tester.post('/tasks', content_type='application/json', data=json.dumps({'id': 2, 'title': 'Test Task', 'description': 'Test Description', 'is_completed': False}))
+        status = response.status_code
+        self.assertEqual(status, 201)
 
 
 
