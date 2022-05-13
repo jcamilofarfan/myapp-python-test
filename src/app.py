@@ -31,5 +31,16 @@ def createTask():
     except Exception as e:
         return jsonify({'message': 'Invalid data'}), 400
 
+@app.route('/tasks/<int:id>', methods=['PUT'])
+def updateTask(id):
+    for task in Tasks:
+        if task['id'] == id:
+            task['title'] = request.json['title']
+            task['description'] = request.json['description']
+            task['is_completed'] = request.json['is_completed']
+            return jsonify({'task': task})
+    return jsonify({'message': 'Task not found'}), 404
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=4000)
