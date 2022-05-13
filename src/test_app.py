@@ -17,12 +17,6 @@ class TestApp(unittest.TestCase):
         status = response.status_code
         self.assertEqual(status, 200)
 
-    # Test GET response valid data
-    def test_app_valid_data(self):
-        tester = app.test_client(self)
-        response = tester.get('/tasks', content_type='application/json')
-        self.assertEqual(response.json, {'tasks': Tasks})
-
     # Test Get request with invalid url
     def test_app_invalid_url(self):
         tester = app.test_client(self)
@@ -43,13 +37,6 @@ class TestApp(unittest.TestCase):
         response = response.json
         self.assertEqual(response['message'], 'Task not found')
 
-    # Test POST request
-    def test_app_post(self):
-        tester = app.test_client(self)
-        response = tester.post('/tasks', content_type='application/json', data=json.dumps({'id': 2, 'title': 'Test Task', 'description': 'Test Description', 'is_completed': False}))
-        status = response.status_code
-        self.assertEqual(status, 201)
-
     # Test POST request with invalid data
     def test_app_invalid_post(self):
         tester = app.test_client(self)
@@ -63,7 +50,7 @@ class TestApp(unittest.TestCase):
         response = tester.put('/tasks/1', content_type='application/json', data=json.dumps({'id': 1, 'title': 'Test Task', 'description': 'Test Description', 'is_completed': False}))
         status = response.status_code
         self.assertEqual(status, 200)
-    
+
     # Test PUT request with invalid id
     def test_app_invalid_put(self):
         tester = app.test_client(self)
@@ -74,10 +61,10 @@ class TestApp(unittest.TestCase):
     # Test Delete request
     def test_app_delete(self):
         tester = app.test_client(self)
-        response = tester.delete('/tasks/1', content_type='application/json')
+        response = tester.delete('/tasks/3', content_type='application/json')
         status = response.status_code
         self.assertEqual(status, 200)
-    
+
     # Test Delete request with invalid id
     def test_app_invalid_delete(self):
         tester = app.test_client(self)
@@ -85,9 +72,18 @@ class TestApp(unittest.TestCase):
         status = response.status_code
         self.assertEqual(status, 404)
 
+    # Test POST request
+    def test_app_post(self):
+        tester = app.test_client(self)
+        response = tester.post('/tasks', content_type='application/json', data=json.dumps({'id': 4, 'title': 'Test Task', 'description': 'Test Description', 'is_completed': False}))
+        status = response.status_code
+        self.assertEqual(status, 201)
 
-
-
+    # Test GET response valid data
+    def test_app_valid_data(self):
+        tester = app.test_client(self)
+        response = tester.get('/tasks', content_type='application/json')
+        self.assertEqual(response.json, {'tasks': Tasks})
 
 if __name__ == '__main__':
     unittest.main()
