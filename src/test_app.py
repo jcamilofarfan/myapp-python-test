@@ -57,6 +57,22 @@ class TestApp(unittest.TestCase):
         status = response.status_code
         self.assertEqual(status, 400)
 
+    # Test PUT request
+    def test_app_put(self):
+        tester = app.test_client(self)
+        response = tester.put('/tasks/1', content_type='application/json', data=json.dumps({'id': 1, 'title': 'Test Task', 'description': 'Test Description', 'is_completed': False}))
+        status = response.status_code
+        self.assertEqual(status, 200)
+    
+    # Test PUT request with invalid id
+    def test_app_invalid_put(self):
+        tester = app.test_client(self)
+        response = tester.put('/tasks/100', content_type='application/json', data=json.dumps({'id': 1, 'title': 'Test Task', 'description': 'Test Description', 'is_completed': False}))
+        status = response.status_code
+        self.assertEqual(status, 404)
+
+
+
 
 
 
