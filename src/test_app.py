@@ -32,6 +32,13 @@ class TestApp(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get('/tasks/1', content_type='application/json')
         self.assertEqual(response.json, {'task': Tasks[0]})
+    
+    # Test Get request with invalid id
+    def test_app_invalid_id(self):
+        tester = app.test_client(self)
+        response = tester.get('/tasks/100', content_type='application/json')
+        response = response.json
+        self.assertEqual(response['message'], 'Task not found')
 
 
 
