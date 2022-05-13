@@ -61,7 +61,7 @@ class TestApp(unittest.TestCase):
     # Test Delete request
     def test_app_delete(self):
         tester = app.test_client(self)
-        response = tester.delete('/tasks/4', content_type='application/json')
+        response = tester.delete('/tasks/3', content_type='application/json')
         status = response.status_code
         self.assertEqual(status, 200)
 
