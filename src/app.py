@@ -41,6 +41,14 @@ def updateTask(id):
             return jsonify({'task': task})
     return jsonify({'message': 'Task not found'}), 404
 
+@app.route('/tasks/<int:id>', methods=['DELETE'])
+def deleteTask(id):
+    for task in Tasks:
+        if task['id'] == id:
+            Tasks.remove(task)
+            return jsonify({'message': 'Task deleted'})
+    return jsonify({'message': 'Task not found'}), 404
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=4000)
