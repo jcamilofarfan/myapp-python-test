@@ -37,3 +37,8 @@ jobs:
     - name: Test with unittest
       run: |
         python src/test_app.py
+        if [ $? -ne 0 ]; then exit 1; fi
+    - name: Run tests with pytest
+      run: |
+        pytest
+        if [ $? -ne 0 ]; then exit 1; fi
