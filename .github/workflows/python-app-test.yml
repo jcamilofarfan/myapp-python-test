@@ -39,10 +39,16 @@ jobs:
       run: |
         pytest
         if [ $? -ne 0 ]; then exit 1; fi
-    - name: merge
+    - name: config git
       run: |
         git config user.name jcamilofarfan
         git config user.email farfan1976@hotmail.com
+    - name: Checkout main
+      run: |
         git checkout main
+    - name: Merge dev
+      run: |
         git merge dev
+    - name: Push to main
+      run: |
         git push origin main
