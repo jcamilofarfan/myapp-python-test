@@ -39,15 +39,12 @@ jobs:
       run: |
         pytest
         if [ $? -ne 0 ]; then exit 1; fi
-
-  merge:
-      runs-on: ubuntu-latest
-
-      steps:
-      - uses: actions/checkout@v3
-      - run: |
-          git config user.name jcamilofarfan
-          git config user.email farfan1976@hotmail.com
-          git add .
-          git diff --quiet && git diff --staged --quiet || git commit -m "[bot] Update data tags and articles"
-          git push origin main
+    - name: merge
+      run: |
+        git merge --no-edit origin/dev
+    - name: commit
+      run: |
+        git commit -m "Merge dev branch"
+    - name: push
+      run: |
+        git push origin dev
