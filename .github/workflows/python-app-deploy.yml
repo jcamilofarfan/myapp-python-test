@@ -1,0 +1,20 @@
+# workflow de prueba que haga sea imprimir algo en consola
+
+
+name: Python application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Print deploy message
+      run: |
+        echo "Deploying to production..."
